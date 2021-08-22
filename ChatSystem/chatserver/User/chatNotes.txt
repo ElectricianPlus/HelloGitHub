@@ -1,0 +1,3 @@
+nini用户登录了, 当前在线：[User{userName = mimi, sex = 女, age = 18, isAdmin = false}, User{userName = nini, sex = 男, age = 22, isAdmin = false}]
+x = 女, age = 18, isAdmin = false}, User{userName = nini, sex = 男, age = 22, isA升序排序后�有用户下线了，当前在线用户： [User{userName = mimi, sex = 女, age = 18, isAdmin = false}]
+ isAdmin = false}]

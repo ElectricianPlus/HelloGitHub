@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<users>
+    <user isAdmin="true">
+        <userName>admin1</userName>
+        <sex>男</sex>
+        <age>50</age>
+    </user>
+    <user isAdmin="true">
+        <userName>admin2</userName>
+        <sex>女</sex>
+        <age>45</age>
+    </user>
+</users>
