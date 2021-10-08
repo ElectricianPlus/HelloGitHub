@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>SheetCheck</title>
+    <style type="text/css">
+        span {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    1.用户名不能为空
+    2.用户名必须在6-14位之间
+    3.用户名只能由数字和字母组成，不能含有其他符号
+    4.密码和确认密码一致，邮箱地址合法
+    5.统一失去焦点验证
+    6.错误提示信息在span标签中提示，并且要求自提12号，红色
+    7.文本框再次获得焦点后，清空错误信息提示
+    8.最终表单所有项均合法方可提交
+     */
+    window.onload = function () {
+        var uNameElt = document.getElementById("uName");
+        var uNameError = document.getElementById("uNameError");
+        var pwdElt = document.getElementById("pwd");
+        var pwdError = document.getElementById("pwdError");
+        var pwdElt2 = document.getElementById("pwd2");
+        var pwd2Error = document.getElementById("pwd2Error");
+        var emailElt = document.getElementById("email");
+        var emailError = document.getElementById("emailError")
+        var submitElt = document.getElementById("submitBtn");
+
+        //给用户名绑定onblur事件
+        uNameElt.onblur = function () {
+            var uName = uNameElt.value;
+            uName.trim();
+            if (uName.length == 0) {
+                uNameError.innerText = "用户名不能为空"
+            } else if (uName.length < 6 || uName.length > 14) {
+                uNameError.innerText = "用户名必须在6-14位之间"
+            } else {
+                var regExp = /^[A-Za-z0-9]+$/;
+                var ok = regExp.test(uName);
+                if (ok) {
+                    //合法
+                } else {
+                    uNameError.innerText = "用户名只能由数字和字母组成，不能含有其他符号"
+                }
+            }
+
+        };
+        //给用户名绑定onfocus事件
+        uNameElt.onfocus = function () {
+            //如果用户名非法，则清空用户名,同时清空报错数据
+            if (uNameError.innerText != "") {
+                document.getElementById("uName").value = "";
+                uNameError.innerText = ""
+            }
+        };
+        //给密码绑定onblur
+
+        pwdElt.onblur = function(){
+            var pwd = pwdElt.value;
+            if(pwd == ""){
+                pwdError.innerText="请设置密码"
+            }
+        };
+        //给密码绑定onfocus
+        pwdElt.onfocus = function(){
+            document.getElementById("pwdError").innerText=""
+        };
+        //给确认密码绑定onblur事件
+        pwdElt2.onblur = function () {
+            var pwd = document.getElementById("pwd").value;
+
+            if (pwd != pwdElt2.value) {
+                pwd2Error.innerText = "第二次输入密码与第一次不一致"
+            }
+        }
+        //给确认密码绑定onfocus事件
+        pwdElt2.onfocus = function () {
+            if (pwd2Error.innerText != "") {
+                pwd2Error.innerText = ""
+            }
+        }
+
+        //给邮箱绑定onblur
+        emailElt.onblur = function () {
+            var regExp = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/;//邮箱正则
+            var email = emailElt.value;
+            if (!(regExp.test(email))){
+                emailError.innerText="请输入正确的邮箱"
+            }
+        }
+        //给邮箱绑定onfocus
+        emailElt.onfocus = function () {
+            document.getElementById("emailError").innerText=""
+        }
+        //确保所有的信息都合法，方可提交
+        submitElt.onclick = function () {
+            uNameElt.focus();
+            uNameElt.blur();
+            pwdElt.focus();
+            pwdElt.blur();
+            pwdElt2.focus();
+            pwdElt2.blur();
+            emailElt.focus();
+            emailElt.blur();
+            if(uNameError.innerText==""
+                &&
+                pwdError.innerText==""
+                &&
+                pwd2Error.innerText==""
+                &&
+                emailError.innerText==""
+            ){
+                document.getElementById("userForm").submit()
+                alert("提交成功")
+            }else {
+                alert("请修正错误")
+            }
+        }
+
+    }
+
+
+</script>
+<form action="http://localhost8080/oa/save" method="get" id="userForm">
+    <table>
+        <tr>
+            <td>用户名</td>
+            <td><input type="text" name="uName" id="uName"/></td>
+            <td><span id="uNameError"></span></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="text" name="pwd" id="pwd"/></td>
+            <td><span id="pwdError"></span></td>
+        </tr>
+        <tr>
+            <td>确认密码</td>
+            <td><input type="text" name="pwd2" id="pwd2"/></td>
+            <td><span id="pwd2Error"></span></td>
+        </tr>
+        <tr>
+            <td>邮箱</td>
+            <td><input type="text" name="email" id="email"/></td>
+            <td><span id="emailError"></span></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="注册" id="submitBtn"></td>
+            <td><input type="reset" value="重置" id="reset"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
